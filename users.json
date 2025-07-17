@@ -1,14 +1,14 @@
 [
   {
-    "name": "Sarthak Sharma",
-    "email": "sarthak@bses.com",
+    "name": "Sarthak Shama",
+    "email": "sarthak@aws.com",
     "password": "123456",
     "role": "developer"
   },
   {
-    "name": "Admin",
-    "email": "admin@bses.com",
-    "password": "admin123",
+    "name": "Adair",
+    "email": "adair@aws.com",
+    "password": "admin127",
     "role": "admin"
   }
 ]
