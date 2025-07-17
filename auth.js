@@ -1,7 +1,6 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-// Add your authentication routes here
 router.post('/login', (req, res) => {
   // Authentication logic
 });
