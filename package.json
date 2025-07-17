@@ -1,0 +1,14 @@
+{
+  "name": "bses-fullstack-connected",
+  "version": "1.0.0",
+  "description": "BSES Fullstack Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "dotenv": "^16.0.3",
+    "cors": "^2.8.5"
+  }
+}

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BSES Login & Dashboard</title>
+  <script src="https://cdn.tailwindcss.com">
+async function loadDashboardTasks() {
+  try {
+    const response = await fetch('/api/dashboard');
+    const data = await response.json();
+    const tbody = document.querySelector('#dashboardSection table tbody');
+    tbody.innerHTML = "";
+    data.tasks.forEach((task, index) => {
+      const row = `<tr>
+        <td class="border px-4 py-2">${index + 1}</td>
+        <td class="border px-4 py-2">${task.reqId}</td>
+        <td class="border px-4 py-2">${task.name}</td>
+        <td class="border px-4 py-2">${task.action}</td>
+        <td class="border px-4 py-2">${task.status}</td>
+        <td class="border px-4 py-2">${task.initDate}</td>
+        <td class="border px-4 py-2">${task.pendingSince}</td>
+        <td class="border px-4 py-2">${task.difficulty}</td>
+      </tr>`;
+      tbody.insertAdjacentHTML('beforeend', row);
+    });
+  } catch (err) {
+    console.error('Dashboard load failed:', err);
+  }
+}
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js">
+async function loadDashboardTasks() {
+  try {
+    const response = await fetch('/api/dashboard');
+    const data = await response.json();
+    const tbody = document.querySelector('#dashboardSection table tbody');
+    tbody.innerHTML = "";
+    data.tasks.forEach((task, index) => {
+      const row = `<tr>
+        <td class="border px-4 py-2">${index + 1}</td>
+        <td class="border px-4 py-2">${task.reqId}</td>
+        <td class="border px-4 py-2">${task.name}</td>
+        <td class="border px-4 py-2">${task.action}</td>
+        <td class="border px-4 py-2">${task.status}</td>
+        <td class="border px-4 py-2">${task.initDate}</td>
+        <td class="border px-4 py-2">${task.pendingSince}</td>
+        <td class="border px-4 py-2">${task.difficulty}</td>
+      </tr>`;
+      tbody.insertAdjacentHTML('beforeend', row);
+    });
+  } catch (err) {
+    console.error('Dashboard load failed:', err);
+  }
+}
+</script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    #loginSection {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .login-box {
+      background-color: rgba(255, 255, 255, 0.98);
+      padding: 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 420px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .input-field {
+      transition: all 0.3s ease;
+      background-color: rgba(249, 250, 251, 0.8);
+    }
+    .input-field:focus {
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    }
+    .login-btn {
+      transition: all 0.3s ease;
+    }
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Section -->
+  <div id="loginSection">
+    <div class="login-box">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-extrabold text-blue-800">BSES Login</h2>
+        <p class="text-gray-600 mt-2">Enter your credentials to continue</p>
+      </div>
+      <form onsubmit="return login(event)" class="space-y-5">
+        <div>
+          <label class="block text-gray-700 font-medium mb-2">Username</label>
+          <input id="username" type="text" class="w-full px-4 py-3 border rounded-lg input-field focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter username" required>
+        </div>
+        <div>
+          <label class="block text-gray-700 font-medium mb-2">Password</label>
+          <input id="password" type="password" class="w-full px-4 py-3 border rounded-lg input-field focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter password" required>
+        </div>
+        <p id="errorMsg" class="text-red-600 text-sm hidden">Invalid credentials. Try again.</p>
+        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg login-btn hover:bg-blue-700 transition font-medium">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard Section (Hidden initially) -->
+  <div id="dashboardSection" class="hidden w-full min-h-screen bg-gray-100 p-4">
+    <div class="flex flex-col md:flex-row flex-wrap">
+      <div class="w-full md:w-1/4 xl:w-1/5 bg-white p-6 shadow-lg">
+        <div class="text-center text-red-600 font-extrabold text-5xl mb-8 tracking-widest">BSES</div>
+        <div class="text-lg font-semibold mb-2">Dashboard</div>
+        <div class="mb-2 hover:underline cursor-pointer">PCN</div>
+        <div class="mb-2 hover:underline cursor-pointer">MIS</div>
+        <div class="mt-6">
+          <div class="text-md font-semibold mb-1">USER INFORMATION</div>
+          <table class="text-sm w-full">
+            <tr><td class="font-semibold">Login User:</td><td id="userDisplay">-</td></tr>
+            <tr><td class="font-semibold">Login ID:</td><td>E10779</td></tr>
+            <tr><td class="font-semibold">Role Desc:</td><td>DEVELOPER</td></tr>
+            <tr><td class="font-semibold">User Manual:</td><td><a class="text-blue-600 underline" href="#">Click Here To Download</a></td></tr>
+          </table>
+        </div>
+        <div class="mt-6 text-red-600 font-bold cursor-pointer" onclick="location.reload()">Logout</div>
+      </div>
+
+      <div class="w-full md:w-3/4 xl:w-4/5 p-6">
+        <h1 class="text-3xl font-bold mb-6 text-blue-700">Process Improvement Management System</h1>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          <div class="bg-green-300 p-4 rounded shadow text-center font-bold">Completed<br/>0</div>
+          <div class="bg-yellow-300 p-4 rounded shadow text-center font-bold">Working<br/>5</div>
+          <div class="bg-orange-300 p-4 rounded shadow text-center font-bold">Pending<br/>5</div>
+          <div class="bg-red-300 p-4 rounded shadow text-center font-bold">On-Hold<br/>0</div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 mb-6 space-y-2 sm:space-y-0">
+          <label class="text-lg font-semibold" for="developer">Assign Developer:</label>
+          <select class="px-4 py-2 border rounded w-full sm:w-auto" id="developer" onchange="showRatingAndRemark(this.value)">
+            <option value="">Select</option>
+            <option value="Piyush">Piyush (⭐ 4.2)</option>
+            <option value="Varun">Varun (⭐ 4.5)</option>
+            <option value="Swati">Swati (⭐ 4.8)</option>
+            <option value="Sarthak">Sarthak (⭐ 5.0)</option>
+          </select>
+          <input id="remark" class="border px-4 py-2 rounded w-full sm:w-1/3" placeholder="Add Remark..." type="text"/>
+        </div>
+
+        <div class="bg-white p-4 rounded shadow mb-6 w-full overflow-auto">
+          <canvas height="200" id="progressChart"></canvas>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-[800px] bg-white border">
+            <thead>
+              <tr class="bg-blue-200 text-left">
+                <th class="px-4 py-2 border">S.No.</th>
+                <th class="px-4 py-2 border">Request ID</th>
+                <th class="px-4 py-2 border">Business Spec</th>
+                <th class="px-4 py-2 border">Last Action Taken By</th>
+                <th class="px-4 py-2 border">Current Status</th>
+                <th class="px-4 py-2 border">Initiated Date</th>
+                <th class="px-4 py-2 border">Pending Since</th>
+                <th class="px-4 py-2 border">Difficulty</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="border px-4 py-2">1</td><td class="border px-4 py-2">REQ13052025162128</td><td class="border px-4 py-2">RAJESH KUMAR KUMAR</td><td class="border px-4 py-2">SUBMITTED</td><td class="border px-4 py-2">Pending</td><td class="border px-4 py-2">13-May-2025</td><td class="border px-4 py-2">13-May-2025</td><td class="border px-4 py-2">Hard</td></tr>
+              <tr><td class="border px-4 py-2">2</td><td class="border px-4 py-2">REQ09052025147203</td><td class="border px-4 py-2">SACHIN BHATNAGAR</td><td class="border px-4 py-2">SUBMITTED</td><td class="border px-4 py-2">Pending</td><td class="border px-4 py-2">09-May-2025</td><td class="border px-4 py-2">09-May-2025</td><td class="border px-4 py-2">Medium</td></tr>
+              <tr><td class="border px-4 py-2">3</td><td class="border px-4 py-2">REQ06052025802115</td><td class="border px-4 py-2">RAKESH GOEL</td><td class="border px-4 py-2">SUBMITTED</td><td class="border px-4 py-2">Pending</td><td class="border px-4 py-2">06-May-2025</td><td class="border px-4 py-2">06-May-2025</td><td class="border px-4 py-2">Easy</td></tr>
+              <tr><td class="border px-4 py-2">4</td><td class="border px-4 py-2">REQ05052025134433</td><td class="border px-4 py-2">DEVICHARAN</td><td class="border px-4 py-2">SUBMITTED</td><td class="border px-4 py-2">Pending</td><td class="border px-4 py-2">05-May-2025</td><td class="border px-4 py-2">05-May-2025</td><td class="border px-4 py-2">Medium</td></tr>
+              <tr><td class="border px-4 py-2">5</td><td class="border px-4 py-2">REQ01052025501081</td><td class="border px-4 py-2">Shalini Singh</td><td class="border px-4 py-2">SUBMITTED</td><td class="border px-4 py-2">Pending</td><td class="border px-4 py-2">01-May-2025</td><td class="border px-4 py-2">01-May-2025</td><td class="border px-4 py-2">Easy</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const validUsers = ['sarthak', 'varun', 'swati', 'piyush'];
+    const validPassword = '1111';
+
+    
+async function login(event) {
+  event.preventDefault();
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+  const errorMsg = document.getElementById('errorMsg');
+
+  try {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: username, password })
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      document.getElementById('loginSection').style.display = 'none';
+      document.getElementById('dashboardSection').classList.remove('hidden');
+      document.getElementById('userDisplay').innerText = data.user.name;
+      drawChart();
+      loadDashboardTasks();
+    } else {
+      errorMsg.classList.remove('hidden');
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    errorMsg.classList.remove('hidden');
+  }
+}
+      event.preventDefault();
+      const username = document.getElementById('username').value.toLowerCase();
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (validUsers.includes(username) && password === validPassword) {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('dashboardSection').classList.remove('hidden');
+        document.getElementById('userDisplay').innerText = username.charAt(0).toUpperCase() + username.slice(1);
+        drawChart();
+      } else {
+        errorMsg.classList.remove('hidden');
+      }
+      return false;
+    }
+
+    function showRatingAndRemark(devName) {
+      const remarkBox = document.getElementById('remark');
+      if (remarkBox) {
+        remarkBox.value = "";
+        remarkBox.placeholder = `Enter remark for ${devName}`;
+      }
+    }
+
+    function drawChart() {
+      const ctx = document.getElementById('progressChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['REQ1305', 'REQ0905', 'REQ0605', 'REQ0505', 'REQ0105'],
+          datasets: [{
+            label: 'Progress (%)',
+            data: [20, 40, 60, 80, 100],
+            backgroundColor: ['#3B82F6', '#F59E0B', '#10B981', '#EF4444', '#6366F1'],
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100
+            }
+          }
+        }
+      });
+    }
+  
+async function loadDashboardTasks() {
+  try {
+    const response = await fetch('/api/dashboard');
+    const data = await response.json();
+    const tbody = document.querySelector('#dashboardSection table tbody');
+    tbody.innerHTML = "";
+    data.tasks.forEach((task, index) => {
+      const row = `<tr>
+        <td class="border px-4 py-2">${index + 1}</td>
+        <td class="border px-4 py-2">${task.reqId}</td>
+        <td class="border px-4 py-2">${task.name}</td>
+        <td class="border px-4 py-2">${task.action}</td>
+        <td class="border px-4 py-2">${task.status}</td>
+        <td class="border px-4 py-2">${task.initDate}</td>
+        <td class="border px-4 py-2">${task.pendingSince}</td>
+        <td class="border px-4 py-2">${task.difficulty}</td>
+      </tr>`;
+      tbody.insertAdjacentHTML('beforeend', row);
+    });
+  } catch (err) {
+    console.error('Dashboard load failed:', err);
+  }
+}
+</script>
+</body>
+</html>

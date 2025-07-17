@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Sarthak Sharma",
+    "email": "sarthak@bses.com",
+    "password": "123456",
+    "role": "developer"
+  },
+  {
+    "name": "Admin",
+    "email": "admin@bses.com",
+    "password": "admin123",
+    "role": "admin"
+  }
+]
