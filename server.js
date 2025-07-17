@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -24,7 +24,7 @@ app.use('/api', submitRemarkRoutes);
 
 // Serve frontend
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/index.html'));
+  res.sendFile(path.join(__dirname, 'public/bsespage.html'));
 });
 
 // Start server
