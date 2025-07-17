@@ -1,7 +1,13 @@
 {
   "tasks": [
-    {"id": 1, "reqId": "REQ13052025162128", "name": "RAJESH KUMAR KUMAR", "action": "SUBMITTED", "status": "Pending", "initDate": "13-May-2025", "pendingSince": "13-May-2025", "difficulty": "Hard"},
-    {"id": 2, "reqId": "REQ09052025147203", "name": "SACHIN BHATNAGAR", "action": "SUBMITTED", "status": "Pending", "initDate": "09-May-2025", "pendingSince": "09-May-2025", "difficulty": "Medium"},
-    {"id": 3, "reqId": "REQ06052025802115", "name": "RAKESH GOEL", "action": "SUBMITTED", "status": "Pending", "initDate": "06-May-2025", "pendingSince": "06-May-2025", "difficulty": "Easy"}
+    {
+      "id": 1,
+      "resid": "REGUSK2805363238",
+      "name": "RADESH ERROR KURME",
+      "action": "SUBMITTER",
+      "status": "Pending",
+      "listDate": "13-May-2025",
+      "pendingSince": "1"
+    }
   ]
 }
